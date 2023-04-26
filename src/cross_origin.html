@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://localhost:8080/timer.js" type="text/javascript" id="timer_script"></script>
+    <title>Cross Origin Timertest</title>
+</head>
+<body>
+    <div id = "timer_script_src">Script Origin: </div>
+    <div id = "isolated">Is isolated:  </div>
+
+
+    <div>
+        <label for="timer_input">Delay(ms):</label>
+        <input type="number" id="delay_input" value="100" >
+    </div>
+
+    <div>
+        <label for="iter_input">Iterations:</label>
+        <input type="number" id="iter_input" min="1" value="100" >
+    </div>
+
+
+    <button onclick="timer()">Start</button>
+    <button onclick="stop_timer()">Stop</button>
+    <div id="result">
+        <div id = "counter">Counter: 0</div>
+        <div id = "mean">Average(mean):</div>
+        <div id = "min">Min:</div>
+        <div id = "max">Max:</div>
+    </div>
+
+    <button onclick="clear_results()">Clear</button>
+    <div>
+        <ol id="results">
+
+        </ol>
+    </div>
+    
+            
+</body>
+
+<script>
+   
+</script>
+</html>
