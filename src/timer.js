@@ -1,7 +1,13 @@
-
-
 window.addEventListener("load", () => {
-    document.getElementById("isolated").innerHTML = "Is isolated: " + crossOriginIsolated;
+    let isolated_element = document.getElementById("isolated");
+    isolated_element.innerHTML = "Is isolated: " + crossOriginIsolated;
+
+    if (crossOriginIsolated) {
+        isolated_element.style.color = "darkgreen";
+    } else {
+        isolated_element.style.color = "darkred";
+    }
+
     let src = document.getElementById("timer_script").src;
     document.getElementById("timer_script_src").innerHTML = "Script Origin: " + src;
 });
@@ -13,7 +19,6 @@ function stop_timer() {
     should_stop = true;
 }
 
-
 async function timer() {
     if (running) {
         return;
@@ -21,17 +26,32 @@ async function timer() {
         running = true;
     }
 
+    let raw_results_element = document.getElementById("results-raw");
+    clear_raw(raw_results_element);
+
     let results = [];
-
+    
+    
     let delay_ms = document.getElementById("delay_input").value;
-    let iter = document.getElementById("iter_input").value;
-    let counter = document.getElementById("counter");
+    let iterations = document.getElementById("iter_input").value;
+    
+    let counter_element = document.getElementById("counter");
+    let mean_element = document.getElementById("mean");
+    let min_element = document.getElementById("min");
+    let max_element = document.getElementById("max");
 
-    for (let i = 1; i <= iter; i++) {
+    mean_element.innerHTML = 0;
+    min_element.innerHTML = 0;
+    max_element.innerHTML = 0;
+
+    
+
+
+    for (let i = 1; i <= iterations; i++) {
         if (should_stop) {
             break;
         }
-        counter.innerHTML = "Counter: " + i;
+        counter_element.innerHTML = i;
 
         let first;
         let second;
@@ -59,6 +79,9 @@ async function timer() {
 
         // save difference
         results.push(dif);
+
+        // save raw timestamps
+        append_raw(raw_results_element, [first, second, delay_ms])
     }
 
     let avg = mean(results);
@@ -66,11 +89,11 @@ async function timer() {
     let min = min__max[0];
     let max = min__max[1];
 
-    document.getElementById("mean").innerHTML = "Average(mean): " + avg + "ms";
-    document.getElementById("min").innerHTML = "Min: " + min + "ms";
-    document.getElementById("max").innerHTML = "Max: " + max + "ms";
+    mean_element.innerHTML = avg;
+    min_element.innerHTML = min;
+    max_element.innerHTML = max;
 
-    append_result(delay_ms, iter, avg, min, max);
+    append_result(delay_ms, iterations, avg, min, max);
 
     should_stop = false;
     running = false;
@@ -146,13 +169,54 @@ function append_result(delay_ms, iter, avg, min, max) {
     listItem.appendChild(min_item);
     listItem.appendChild(max_item);
 
+    listItem.classList.add("results-summary");
     document.getElementById("results").appendChild(listItem);
 }
 
 
 function clear_results() {
+    document.getElementById("counter").innerHTML = 0;
+    document.getElementById("mean").innerHTML = 0;
+    document.getElementById("min").innerHTML = 0;
+    document.getElementById("max").innerHTML = 0;
+
+    clear_raw(document.getElementById("results-raw"));
+
     let element = document.getElementById("results");
     while (element.firstChild) {
         element.removeChild(element.firstChild);
+    }
+}
+
+function append_raw(raw_results_element, data) {
+    let first = data[0];
+    let second = data[1];
+    let dif = second - first -data[2];
+
+    let listItem = document.createElement('li')
+    let dif_element = document.createElement('div');
+    let first_element = document.createElement('div');
+    let second_element = document.createElement('div');
+
+    dif_element.style.fontWeight  = "bold";
+
+
+    dif_element.innerHTML = dif;
+    first_element.innerHTML = first;
+    second_element.innerHTML = second;
+
+    listItem.appendChild(dif_element);
+    listItem.appendChild(first_element);
+    listItem.appendChild(second_element);
+
+
+    listItem.classList.add("results-raw");
+    raw_results_element.appendChild(listItem);
+}
+
+
+function clear_raw(raw_results_element) {
+    while (raw_results_element.firstChild) {
+        raw_results_element.removeChild(raw_results_element.firstChild);
     }
 }
