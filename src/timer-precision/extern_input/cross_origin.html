@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="/timer-precision/styles.css">
     <link rel="stylesheet" href="/timer-precision/extern_input/styles.css">
     <script src="https://wutterfly.com:8080/timer-precision/extern_input/timer.js" type="text/javascript" id="timer_script"></script>
-    <title>Same Origin Timertest</title>
+    
+    <title>Cross Origin Timertest</title>
 </head>
 
 <body>
     <div class="header">
         <a class="header-link" href="/">Home</a>
-        <a class="header-link" href="/timer-precision/extern_input/same_origin.html">Isolated Site - Extern Input</a>
+        <a class="header-link" href="/timer-precision/extern_input/cross_origin.html">Isolated Site - Extern Input</a>
     </div>
 
     <div class="content">
@@ -54,10 +55,14 @@
 
             </div>
 
-            <ul class="results-results" id="results"></ul>
-            <div class="results-results">
-                <button class="button button-download" onclick="download_raw()">Download</button>
-                <ul id="results-raw"></ul>
+            <button class="button button-download" onclick="download_raw()">Download</button>
+            <div class="results-wrapper">
+                <div class="results-results">
+                    <ul id="results"></ul>
+                </div>
+                <div class="results-results">
+                    <ul id="results-raw"></ul>
+                </div>
             </div>
 
 
