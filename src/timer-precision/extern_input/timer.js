@@ -112,6 +112,10 @@ function clear_results() {
         raw_results_element.removeChild(raw_results_element.firstChild);
     }
 
+    while (results_element.firstChild) {
+        results_element.removeChild(results_element.firstChild);
+    }
+
 }
 
 function clear_raw(raw_results_element) {
