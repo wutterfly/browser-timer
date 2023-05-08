@@ -1,7 +1,51 @@
 body {
-    background-color: gray;
     margin: 0;
+    background-color: gray;
 }
+
+a {
+    text-decoration: none;
+}
+
+
+.header {
+    background-color: lightslategray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 5vh;
+   
+}
+
+.header-link{
+    font-size: medium;
+    font-weight: bold;
+}
+
+.content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.title {
+    margin-top: 1em;
+}
+
+.status {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: large;
+    font-weight: bolder;
+    font-style: italic;
+}
+
 
 .body-content {
     display: flex;

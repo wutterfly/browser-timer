@@ -1,0 +1,17 @@
+
+.input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-field {
+    width: 400px;
+    height: 200px;
+}
+
+.results {
+
+    margin-top: 20px;
+}

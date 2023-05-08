@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/cont-auth/extern_input/styles.css">
+    <script src="/cont-auth/extern_input/script.js" type="text/javascript" id="timer_script"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <a class="header-link" href="/">Home</a>
+        <a class="header-link" href="/cont-auth/extern_input/cross_origin.html">Unisolated Site</a>
+    </div>
+
+    <div class="content">
+        <h1 class="title">Browser Jitter on Isolated Site</h1>
+        <div class="status">
+            <div id="timer_script_src">Script Origin: </div>
+            <div id="isolated">Is isolated: </div>
+        </div>
+
+        <div class="input">
+
+            <textarea id="input-field" class="input-field"></textarea>
+
+        </div>
+
+
+        <div class="results">
+            <h1>Events</h1>
+            <ul class="events" id="events">
+
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
