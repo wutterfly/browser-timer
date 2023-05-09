@@ -38,6 +38,7 @@ function button() {
     raw_results.push(timestamp);
 
     let len = raw_results.length;
+    console.log(len);
 
     append_raw(timestamp);
 
@@ -57,7 +58,9 @@ function button() {
         distances.push(dif)
         append_dif(dif);
 
-        let data = min_max_mean(distances, 1);
+        let slice = distances.slice(1,distances.length);
+        console.log(slice);
+        let data = min_max_mean(slice);
 
 
         results_min_element.innerHTML = data[0];
@@ -116,24 +119,20 @@ function clear_results() {
         results_element.removeChild(results_element.firstChild);
     }
 
+    raw_results = [];
+
 }
 
-function clear_raw(raw_results_element) {
-    while (raw_results_element.firstChild) {
-        raw_results_element.removeChild(raw_results_element.firstChild);
-    }
-
-    results_raw = [];
-}
 
 /** get min,max and mean */
-function min_max_mean(array, start) {
+function min_max_mean(array) {
     let min = undefined;
     let max = undefined;
     let total = 0;
-    let counter = 0;
 
-    for (let i = start; i < array.length; i++) {
+    
+
+    for (let i = 0; i < array.length; i++) {
         let x = array[i]
 
         if (min == undefined && max == undefined) {
@@ -150,11 +149,10 @@ function min_max_mean(array, start) {
         }
 
         total += x;
-        counter += 1;
     }
 
 
-    mean = total / counter
+    mean = total / array.length
 
     return [min, max, mean];
 }
