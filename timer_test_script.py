@@ -1,32 +1,38 @@
 # imports
-import webbrowser
-import time
-import mouse
+import webbrowser # to open a webbrowser
+import time # to get local timestamps
+import mouse # to simulate mouse click
 
 
 # Variables/Constants
-url = 'http://localhost/timer-precision/extern_input/same_origin.html'
+url = 'https://wutterfly.com/timer-precision/extern_input/same_origin.html'
 iterations = 10
-time_to_sleep_sec = 0.1
+time_to_sleep_sec = 0.1 # 100ms
 results = [0.0] * iterations # preallocate vector (?)
 results_raw = [0.0] * iterations # preallocate vector (?)
 
 if __name__ == "__main__":
     webbrowser.open(url) # open webpage in browser
-    time.sleep(3) # wait for user to be ready
+    time.sleep(3) # wait for user to be ready (hover with mouse over button)
 
 
-
+    # take timestamps in browser
     for i in range(iterations):  
-        # sleep for seconds
-        first = time.time() 
-        time.sleep(time_to_sleep_sec)
-        second = time.time()
+        # click once (on the button to take a timestamp inside the browser)
         mouse.click('left') # click
 
-        # save time it took for one iteration (should approx. be time slept)
-        results[i] = (second - first - time_to_sleep_sec ) * 1000
-        results_raw[i] = (second - first) * 1000
+        # get local timestamp
+        first = time.time() 
 
-    print(results)
-    print(results_raw)
+        # sleep for seconds
+        time.sleep(time_to_sleep_sec)
+
+        # get second local timestamp
+        second = time.time()
+
+        # save time it took for one iteration (should be time slept)
+        results[i] = (second - first - time_to_sleep_sec)  * 1000 # to millisecond
+        results_raw[i] = (second - first) * 1000 # to millisecond
+
+    print("Time Overslept:\n", results)
+    print("Time Slept(Raw):\n", results_raw)

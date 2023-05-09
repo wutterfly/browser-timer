@@ -18,25 +18,28 @@ window.addEventListener("load", () => {
 
     input_field_element.addEventListener("keydown", on_event)
     input_field_element.addEventListener("keyup", on_event)
-
-    results.push([performance.now(), "", ""])
 });
 
 let input_field_element = undefined;
 let events_element = undefined;
 
+let last_event = undefined;
+
 let results = []
 
 
 function on_event(event) {
-    let timestampt = performance.now();
-    console.log(event);
+    let timestamp = performance.now();
 
-    let data = [timestampt, event.key, event.type];
+    if (last_event == undefined) {
+        last_event = timestamp
+    }
+
+    let data = [timestamp - last_event, event.key, event.type];
+
+    last_event = timestamp;
 
     results.push(data);
-
-    console.log(results);
 
     append_event(data);
 }
@@ -56,8 +59,55 @@ function append_event(data) {
     listItem.appendChild(key);
     listItem.appendChild(typ);
 
+    if (data[2] == "keyup") {
+        listItem.style.color = "#4a1a1a";
+    } else if (data[2] == "keydown") {
+        listItem.style.color = "#1c4a1d";
+    }
 
     listItem.classList.add("event");
     events_element.appendChild(listItem);
 }
 
+function download() {
+    if (results == undefined) {
+        alert("No results!");
+        return;
+    }
+    const csv = to_csv(results);
+
+    const blob = new Blob([csv], { type: 'text/plain' });
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = `text-timing-data.csv`;
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+
+    document.body.removeChild(downloadLink);
+}
+
+function to_csv(results_raw) {
+    let output = "timestamp,key,type\n";
+
+
+    results_raw.forEach((row) => {
+        output += `${row[0]},${row[1]},${row[2]}\n`;
+    })
+
+
+    console.log(output)
+
+    return output;
+}
+
+function clear_all() {
+    while (events_element.firstChild) {
+        events_element.removeChild(events_element.firstChild);
+    }
+    input_field_element.value = "";
+    results = [];
+    last_event = undefined;
+}
