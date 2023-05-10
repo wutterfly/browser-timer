@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/cont-auth/extern_input/styles.css">
+    <script src="https://wutterfly.com:8080/cont-auth/extern_input/script.js" type="text/javascript" id="timer_script"></script>
+    <title>Password-Timer</title>
 </head>
+
 <body>
-    
+
+    <div class="header">
+        <a class="header-link" href="/">Home</a>
+        <a class="header-link" href="/cont-auth/extern_input/same_origin.html">Isolated Site</a>
+    </div>
+
+    <div class="content">
+        <h1 class="title">Browser Jitter on Unisolated Site</h1>
+        <div class="status">
+            <div id="timer_script_src">Script Origin: </div>
+            <div id="isolated">Is isolated: </div>
+        </div>
+
+        <div class="input">
+
+            <textarea id="input-field" class="input-field"></textarea>
+
+        </div>
+
+
+        <div class="results">
+            <h1>Events</h1>
+            <div class="results-control">
+                <button class="button" onclick="clear_all()">Clear</button>
+                <button class="button" onclick="download()">Download</button>
+            </div>
+            <ul class="events" id="events"></ul>
+        </div>
+
+    </div>
+
 </body>
+
 </html>

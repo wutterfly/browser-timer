@@ -4,8 +4,10 @@ window.addEventListener("load", () => {
 
     if (crossOriginIsolated) {
         isolated_element.style.color = "darkgreen";
+        file_suf = "isolated";
     } else {
         isolated_element.style.color = "darkred";
+        file_suf = "unisolated";
     }
 
     let src = document.getElementById("timer_script").src;
@@ -20,7 +22,7 @@ window.addEventListener("load", () => {
 
 });
 
-
+let file_suf = undefined;
 let raw_results = [];
 let distances = [];
 
@@ -168,7 +170,7 @@ function download_raw() {
 
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = `browser-timing-data.csv`;
+    downloadLink.download = `browser-timing-data-${file_suf}.csv`;
     downloadLink.style.display = 'none';
     document.body.appendChild(downloadLink);
 
