@@ -40,7 +40,6 @@ function button() {
     raw_results.push(timestamp);
 
     let len = raw_results.length;
-    console.log(len);
 
     append_raw(timestamp);
 
@@ -61,7 +60,6 @@ function button() {
         append_dif(dif);
 
         let slice = distances.slice(1,distances.length);
-        console.log(slice);
         let data = min_max_mean(slice);
 
 
@@ -125,7 +123,6 @@ function clear_results() {
 
 }
 
-
 /** get min,max and mean */
 function min_max_mean(array) {
     let min = undefined;
@@ -187,7 +184,6 @@ function to_csv(results_raw, distances) {
         output += `${results_raw[i]},${distances[i]}\n`;
     }
 
-    console.log(output)
 
     return output;
 }

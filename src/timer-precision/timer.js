@@ -264,7 +264,5 @@ function to_csv(results_raw) {
     })
 
 
-    console.log(output)
-
     return output;
 }

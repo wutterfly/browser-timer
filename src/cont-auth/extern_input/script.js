@@ -97,9 +97,6 @@ function to_csv(results_raw) {
         output += `${row[0]},${row[1]},${row[2]}\n`;
     })
 
-
-    console.log(output)
-
     return output;
 }
 
