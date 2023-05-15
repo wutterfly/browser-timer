@@ -102,6 +102,26 @@ function download() {
     document.body.removeChild(downloadLink);
 }
 
+function download_simple() {
+    if (results == undefined || results.length == 0) {
+        alert("No events!");
+        return;
+    }
+    const csv = to_csv_distances(results);
+
+    const blob = new Blob([csv], { type: 'text/plain' });
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = `browser-overhead-data.json`;
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+
+    document.body.removeChild(downloadLink);
+}
+
 function to_csv(results_raw) {
     let output = "timestamp,distance,key,type\n";
 
