@@ -41,7 +41,7 @@ function on_event(event) {
 
     results.push(data);
 
-    append_event(data);
+    //append_event(data);
 }
 
 function append_event(data) {
@@ -107,4 +107,10 @@ function clear_all() {
     input_field_element.value = "";
     results = [];
     last_event = undefined;
+}
+
+function show_all() {
+    for (let i = 0; i < results.length; i++) {
+        append_event(results[i])
+    }
 }

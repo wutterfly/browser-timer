@@ -41,11 +41,11 @@ function button() {
 
     let len = raw_results.length;
 
-    append_raw(timestamp);
+    //append_raw(timestamp);
 
 
     if (len == 1) {
-        append_dif(0);
+        //append_dif(0);
         distances.push(0)
         results_min_element.innerHTML = 0;
         results_max_element.innerHTML = 0;
@@ -57,7 +57,7 @@ function button() {
         let prev = raw_results[len - 2];
         let dif = current - prev;
         distances.push(dif)
-        append_dif(dif);
+        //append_dif(dif);
 
         let slice = distances.slice(1,distances.length);
         let data = min_max_mean(slice);
@@ -69,8 +69,6 @@ function button() {
     }
 
     results_counter_element.innerHTML = raw_results.length;
-
-
 }
 
 function append_dif(timestamp) {
@@ -121,6 +119,16 @@ function clear_results() {
 
     raw_results = [];
 
+}
+
+function show_results() {
+    for (let i = 0; i < raw_results.length; i++) {
+        append_raw(raw_results[i])
+    }
+
+    for (let i = 0; i < distances.length; i++) {
+        append_dif(distances[i])
+    }
 }
 
 /** get min,max and mean */
