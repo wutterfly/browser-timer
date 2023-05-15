@@ -33,7 +33,7 @@ let results = [];
 function on_event(event) {
     let now = performance.now();
     if (event.key == ListenKey) {
-        results.push([now, event.key, event.type]);
+        results.push([now/1000, event.key, event.type]);
         console.log(now);
     }
 }
