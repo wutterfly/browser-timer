@@ -118,6 +118,7 @@ function clear_results() {
     }
 
     raw_results = [];
+    distances = [];
 
 }
 
