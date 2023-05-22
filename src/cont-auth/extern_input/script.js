@@ -34,6 +34,11 @@ function on_event(event) {
     if (last_event == undefined) {
         last_event = timestamp
     }
+    
+    if (event.key == "F2" && event.type == "keyup") {
+        download();
+        return;
+    }
 
     let data = [timestamp - last_event, event.key, event.type];
 
