@@ -34,9 +34,11 @@ function on_event(event) {
     if (last_event == undefined) {
         last_event = timestamp
     }
-    
-    if (event.key == "F2" && event.type == "keyup") {
-        download();
+
+    if (event.key == "F2") {
+        if (event.type == "keyup") {
+            download();
+        }
         return;
     }
 
