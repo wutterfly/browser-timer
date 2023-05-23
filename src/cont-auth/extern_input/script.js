@@ -42,7 +42,7 @@ function on_event(event) {
         return;
     }
 
-    let data = [timestamp - last_event, event.key, event.type];
+    let data = [timestamp, timestamp - last_event, event.key, event.type];
 
     last_event = timestamp;
 
@@ -57,18 +57,18 @@ function append_event(data) {
     let key = document.createElement('div');
     let typ = document.createElement('div');
 
-    timestamp.innerHTML = "Timestamp: " + data[0] + "ms";
-    key.innerHTML = "Key: " + data[1];
-    typ.innerHTML = "Type: " + data[2];
+    timestamp.innerHTML = "Timestamp: " + data[1] + "ms";
+    key.innerHTML = "Key: " + data[2];
+    typ.innerHTML = "Type: " + data[3];
 
 
     listItem.appendChild(timestamp);
     listItem.appendChild(key);
     listItem.appendChild(typ);
 
-    if (data[2] == "keyup") {
+    if (data[3] == "keyup") {
         listItem.style.color = "#4a1a1a";
-    } else if (data[2] == "keydown") {
+    } else if (data[3] == "keydown") {
         listItem.style.color = "#1c4a1d";
     }
 
@@ -97,11 +97,11 @@ function download() {
 }
 
 function to_csv(results_raw) {
-    let output = "timestamp,key,type\n";
+    let output = "timestamp,distance,key,type\n";
 
 
     results_raw.forEach((row) => {
-        output += `${row[0]},${row[1]},${row[2]}\n`;
+        output += `${row[0]},${row[1]},${row[2]},${row[3]}\n`;
     })
 
     return output;
