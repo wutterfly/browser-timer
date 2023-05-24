@@ -25,7 +25,8 @@ let events_element = undefined;
 
 let last_event = undefined;
 
-let results = []
+let results = [];
+let downloads = 0;
 
 
 function on_event(event) {
@@ -38,6 +39,8 @@ function on_event(event) {
     if (event.key == "F2") {
         if (event.type == "keyup") {
             download();
+            results = [];
+            downloads += 1;
         }
         return;
     }
