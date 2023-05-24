@@ -40,6 +40,7 @@ function on_event(event) {
         if (event.type == "keyup") {
             download();
             results = [];
+            input_field_element.value = "";
             downloads += 1;
         }
         return;
