@@ -26,6 +26,7 @@ let events_element = undefined;
 let last_event = undefined;
 
 let results = [];
+let current_data = [];
 let downloads = 0;
 
 
@@ -52,12 +53,81 @@ function on_event(event) {
 
     results.push(data);
 
+    current_data.push([event.key, event.type])
+
     if (event.key == "Enter") {
         if (event.type == "keyup") {
             if (input_field_element.value != ".tie5Roanl\n") {
                 alert("wrong password: ", input_field_element.value);
             } else {
                 input_field_element.value = "";
+
+                // .tie5Roanl\n
+
+                is = [
+                    [false, false], // .
+                    [false, false], // t
+                    [false, false], // i
+                    [false, false], // e
+                    [false, false], // 5
+                    [false, false], // Shift
+                    [false, false], // R
+                    [false, false], // o
+                    [false, false], // a
+                    [false, false], // n
+                    [false, false], // l
+                    [false, false], // \n
+                    
+                ]
+
+                for (let i = 0; i < current_data.length; i++) {
+                    let event = [current_data];
+                    let key = event[0];
+                    let type = event[1];
+
+                    if (key == "." && type == "keydown") {is[0][0] = true}
+                    if (key == "." && type == "keyup") {is[0][1] = true}
+
+                    if (key == "t" && type == "keydown") {is[1][0] = true}
+                    if (key == "t" && type == "keyup") {is[1][1] = true}
+
+                    if (key == "i" && type == "keydown") {is[2][0] = true}
+                    if (key == "i" && type == "keyup") {is[2][1] = true}
+
+                    if (key == "e" && type == "keydown") {is[3][0] = true}
+                    if (key == "e" && type == "keyup") {is[3][1] = true}
+
+                    if (key == "5" && type == "keydown") {is[4][0] = true}
+                    if (key == "5" && type == "keyup") {is[4][1] = true}
+
+                    if (key == "Shift" && type == "keydown") {is[5][0] = true}
+                    if (key == "Shift" && type == "keyup") {is[5][1] = true}
+
+                    if (key == "R" && type == "keydown") {is[6][0] = true}
+                    if (key == "r" && type == "keyup") {is[6][1] = true}
+
+                    if (key == "o" && type == "keydown") {is[7][0] = true}
+                    if (key == "o" && type == "keyup") {is[7][1] = true}
+
+                    if (key == "a" && type == "keydown") {is[8][0] = true}
+                    if (key == "a" && type == "keyup") {is[8][1] = true}
+
+                    if (key == "n" && type == "keydown") {is[9][0] = true}
+                    if (key == "n" && type == "keyup") {is[9][1] = true}
+
+                    if (key == "l" && type == "keydown") {is[10][0] = true}
+                    if (key == "l" && type == "keyup") {is[10][1] = true}
+
+                    if (key == "Enter" && type == "keydown") {is[11][0] = true}
+                    if (key == "Enter" && type == "keyup") {is[11][1] = true}
+                }
+
+                for (let i = 0; i < is.length; i++) { 
+                    if(!is[0] || !is[1]) {
+                        alert("no all keys captured: ", i, is[0], is[1])
+                    }
+                }
+                
             }
         }
         
