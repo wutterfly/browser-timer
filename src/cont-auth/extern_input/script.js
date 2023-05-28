@@ -52,6 +52,17 @@ function on_event(event) {
 
     results.push(data);
 
+    if (event.key == "Enter") {
+        if (event.type == "keyup") {
+            if (input_field_element.value != ".tie5Roanl\n") {
+                alert("wrong password: ", input_field_element.value);
+            } else {
+                input_field_element.value = "";
+            }
+        }
+        
+    }
+
     //append_event(data);
 }
 
