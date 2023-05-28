@@ -26,6 +26,8 @@ let events_element = undefined;
 let last_event = undefined;
 
 let results = [];
+let counter = 0;
+let password_counter = 0;
 let current_data = [];
 let downloads = 0;
 
@@ -47,9 +49,10 @@ function on_event(event) {
         return;
     }
 
-    let data = [timestamp, timestamp - last_event, event.key, event.type];
+    let data = [counter,password_counter,timestamp, timestamp - last_event, event.key, event.type];
 
     last_event = timestamp;
+    counter += 1;
 
     results.push(data);
 
@@ -57,13 +60,14 @@ function on_event(event) {
 
     if (event.key == "Enter") {
         if (event.type == "keyup") {
+            // check that the password is correct
             if (input_field_element.value != ".tie5Roanl\n") {
                 alert("wrong password: ", input_field_element.value);
-            } else {
-                input_field_element.value = "";
-
-                // .tie5Roanl\n
-
+            } 
+            // check that all events where captured
+            else {
+                
+                // mask for all necessary events (should all become true)
                 is = [
                     [false, false], // .
                     [false, false], // t
@@ -78,8 +82,14 @@ function on_event(event) {
                     [false, false], // l
                     [false, false], // \n
                     
-                ]
+                ]   
 
+                // there should be a total of 24 events (12 keys down->up)
+                if (current_data.length != 24) {
+                    alert("Not all keys captured.")
+                }
+
+                // save all events that were triggered
                 for (let i = 0; i < current_data.length; i++) {
                     let event = [current_data];
                     let key = event[0];
@@ -122,9 +132,10 @@ function on_event(event) {
                     if (key == "Enter" && type == "keyup") {is[11][1] = true}
                 }
 
+                // check that all necessary events were triggered
                 for (let i = 0; i < is.length; i++) { 
                     if(!is[0] || !is[1]) {
-                        alert("no all keys captured: ", i, is[0], is[1])
+                        alert("Not all keys captured: ", i, is[0], is[1])
                         return;
                     }
                 }
@@ -132,6 +143,8 @@ function on_event(event) {
                 console.log("All correct!");
                 console.log(current_data);
                 current_data = [];
+                input_field_element.value = "";
+                password_counter += 1;
                 
             }
         }
@@ -187,11 +200,11 @@ function download() {
 }
 
 function to_csv(results_raw) {
-    let output = "timestamp,distance,key,type\n";
+    let output = "counter,password_counter,timestamp,distance,key,type\n";
 
 
     results_raw.forEach((row) => {
-        output += `${row[0]},${row[1]},${row[2]},${row[3]}\n`;
+        output += `${row[0]},${row[1]},${row[2]},${row[3]},${row[4]},${row[5]}\n`;
     })
 
     return output;
