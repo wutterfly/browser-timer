@@ -140,8 +140,7 @@ function on_event(event) {
                     }
                 }
 
-                console.log("All correct!");
-                console.log(current_data);
+                //console.log("All correct!");
                 current_data = [];
                 input_field_element.value = "";
                 password_counter += 1;
