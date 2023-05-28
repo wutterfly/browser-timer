@@ -125,8 +125,13 @@ function on_event(event) {
                 for (let i = 0; i < is.length; i++) { 
                     if(!is[0] || !is[1]) {
                         alert("no all keys captured: ", i, is[0], is[1])
+                        return;
                     }
                 }
+
+                console.log("All correct!");
+                console.log(current_data);
+                current_data = [];
                 
             }
         }
