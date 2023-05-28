@@ -49,7 +49,7 @@ function on_event(event) {
         return;
     }
 
-    let data = [counter,password_counter,timestamp, timestamp - last_event, event.key, event.type];
+    let data = [counter, password_counter, timestamp, timestamp - last_event, event.key, event.type];
 
     last_event = timestamp;
     counter += 1;
@@ -63,10 +63,10 @@ function on_event(event) {
             // check that the password is correct
             if (input_field_element.value != ".tie5Roanl\n") {
                 alert("wrong password: ", input_field_element.value);
-            } 
+            }
             // check that all events where captured
             else {
-                
+
                 // mask for all necessary events (should all become true)
                 is = [
                     [false, false], // .
@@ -81,8 +81,8 @@ function on_event(event) {
                     [false, false], // n
                     [false, false], // l
                     [false, false], // \n
-                    
-                ]   
+
+                ]
 
                 // there should be a total of 24 events (12 keys down->up)
                 if (current_data.length != 24) {
@@ -95,46 +95,46 @@ function on_event(event) {
                     let key = event[0];
                     let type = event[1];
 
-                    if (key == "." && type == "keydown") {is[0][0] = true}
-                    if (key == "." && type == "keyup") {is[0][1] = true}
+                    if (key == "." && type == "keydown") { is[0][0] = true }
+                    if (key == "." && type == "keyup") { is[0][1] = true }
 
-                    if (key == "t" && type == "keydown") {is[1][0] = true}
-                    if (key == "t" && type == "keyup") {is[1][1] = true}
+                    if (key == "t" && type == "keydown") { is[1][0] = true }
+                    if (key == "t" && type == "keyup") { is[1][1] = true }
 
-                    if (key == "i" && type == "keydown") {is[2][0] = true}
-                    if (key == "i" && type == "keyup") {is[2][1] = true}
+                    if (key == "i" && type == "keydown") { is[2][0] = true }
+                    if (key == "i" && type == "keyup") { is[2][1] = true }
 
-                    if (key == "e" && type == "keydown") {is[3][0] = true}
-                    if (key == "e" && type == "keyup") {is[3][1] = true}
+                    if (key == "e" && type == "keydown") { is[3][0] = true }
+                    if (key == "e" && type == "keyup") { is[3][1] = true }
 
-                    if (key == "5" && type == "keydown") {is[4][0] = true}
-                    if (key == "5" && type == "keyup") {is[4][1] = true}
+                    if (key == "5" && type == "keydown") { is[4][0] = true }
+                    if (key == "5" && type == "keyup") { is[4][1] = true }
 
-                    if (key == "Shift" && type == "keydown") {is[5][0] = true}
-                    if (key == "Shift" && type == "keyup") {is[5][1] = true}
+                    if (key == "Shift" && type == "keydown") { is[5][0] = true }
+                    if (key == "Shift" && type == "keyup") { is[5][1] = true }
 
-                    if (key == "R" && type == "keydown") {is[6][0] = true}
-                    if (key == "r" && type == "keyup") {is[6][1] = true}
+                    if (key == "R" && type == "keydown") { is[6][0] = true }
+                    if (key == "r" && type == "keyup") { is[6][1] = true }
 
-                    if (key == "o" && type == "keydown") {is[7][0] = true}
-                    if (key == "o" && type == "keyup") {is[7][1] = true}
+                    if (key == "o" && type == "keydown") { is[7][0] = true }
+                    if (key == "o" && type == "keyup") { is[7][1] = true }
 
-                    if (key == "a" && type == "keydown") {is[8][0] = true}
-                    if (key == "a" && type == "keyup") {is[8][1] = true}
+                    if (key == "a" && type == "keydown") { is[8][0] = true }
+                    if (key == "a" && type == "keyup") { is[8][1] = true }
 
-                    if (key == "n" && type == "keydown") {is[9][0] = true}
-                    if (key == "n" && type == "keyup") {is[9][1] = true}
+                    if (key == "n" && type == "keydown") { is[9][0] = true }
+                    if (key == "n" && type == "keyup") { is[9][1] = true }
 
-                    if (key == "l" && type == "keydown") {is[10][0] = true}
-                    if (key == "l" && type == "keyup") {is[10][1] = true}
+                    if (key == "l" && type == "keydown") { is[10][0] = true }
+                    if (key == "l" && type == "keyup") { is[10][1] = true }
 
-                    if (key == "Enter" && type == "keydown") {is[11][0] = true}
-                    if (key == "Enter" && type == "keyup") {is[11][1] = true}
+                    if (key == "Enter" && type == "keydown") { is[11][0] = true }
+                    if (key == "Enter" && type == "keyup") { is[11][1] = true }
                 }
 
                 // check that all necessary events were triggered
-                for (let i = 0; i < is.length; i++) { 
-                    if(!is[0] || !is[1]) {
+                for (let i = 0; i < is.length; i++) {
+                    if (!is[0] || !is[1]) {
                         alert("Not all keys captured: ", i, is[0], is[1])
                         return;
                     }
@@ -145,10 +145,10 @@ function on_event(event) {
                 current_data = [];
                 input_field_element.value = "";
                 password_counter += 1;
-                
+
             }
         }
-        
+
     }
 
     //append_event(data);
