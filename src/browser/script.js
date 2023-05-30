@@ -107,7 +107,7 @@ function download_simple() {
         alert("No events!");
         return;
     }
-    const csv = to_csv_distances(results);
+    const csv = to_csv_simple(results);
 
     const blob = new Blob([csv], { type: 'text/plain' });
 
@@ -139,18 +139,12 @@ function to_csv(results_raw) {
     return output;
 }
 
-function to_csv_distances(results_raw) {
+function to_csv_simple(results_raw) {
     let output = "[";
 
     for (let i = 0; i < results_raw.length; i++) {
         let row = results[i];
-        if (i == 0) {
-            output += `${0}`
-            continue;
-        }
-
-        let last_row = results_raw[i - 1];
-        output += `,${row[0] - last_row[0]}`;
+        output += `,${row[0]}`;
 
     }
     return output += "]";
