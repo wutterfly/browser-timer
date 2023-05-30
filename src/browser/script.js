@@ -108,6 +108,11 @@ function download_simple() {
         alert("No events!");
         return;
     }
+
+    if (results.length !=  100) {
+        alert(`Wrong len: ${results.length}`);
+    }
+
     const csv = to_csv_simple(results);
 
     const blob = new Blob([csv], { type: 'text/plain' });
