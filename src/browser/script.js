@@ -144,7 +144,10 @@ function to_csv_simple(results_raw) {
 
     for (let i = 0; i < results_raw.length; i++) {
         let row = results[i];
-        output += `,${row[0]}`;
+        output += `${row[0]}`;
+        if (i != results_raw.length -1) {
+            output += ",";
+        }
 
     }
     return output += "]";
