@@ -44,7 +44,7 @@ function on_event(event) {
             download();
             results = [];
             input_field_element.value = "";
-            downloads += 1;
+          
         }
         return;
     }
@@ -189,13 +189,14 @@ function download() {
 
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = `text-timing-data.csv`;
+    downloadLink.download = `text-timing-data.csv (${downloads})`;
     downloadLink.style.display = 'none';
     document.body.appendChild(downloadLink);
 
     downloadLink.click();
 
     document.body.removeChild(downloadLink);
+    downloads += 1;
 }
 
 function to_csv(results_raw) {
