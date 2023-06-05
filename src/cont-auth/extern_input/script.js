@@ -86,6 +86,7 @@ function on_event(event) {
 
                 // there should be a total of 24 events (12 keys down->up)
                 if (current_data.length != 24) {
+                    console.log(current_data);
                     alert("Not all keys captured.")
                 }
 
