@@ -193,7 +193,7 @@ function download() {
 
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = `text-timing-data.csv (${downloads})`;
+    downloadLink.download = `text-timing-data(${downloads}).csv`;
     downloadLink.style.display = 'none';
     document.body.appendChild(downloadLink);
 
