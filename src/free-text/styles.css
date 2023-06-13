@@ -1,3 +1,33 @@
+body {
+    background-color: gray;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.body-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background-color: lightslategray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 5vh;
+   
+}
+
+.header-link{
+    font-size: medium;
+    font-weight: bold;
+}
+
 
 .input {
     display: flex;

@@ -27,3 +27,42 @@ a {
     font-size: medium;
     font-weight: bold;
 }
+
+
+.input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-field {
+    width: 400px;
+    height: 200px;
+}
+
+.results {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.results-control {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.events {
+    list-style-type: none;
+}
+
+.event {
+    margin: 0.5em;
+    padding: 0.5em;
+    border: 1px solid darkgray;
+    font-weight: bold;
+}

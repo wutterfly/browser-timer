@@ -39,7 +39,7 @@ function on_event(event) {
         last_event = timestamp
     }
 
-    if (event.key == "F2" || event.key == "q" ) {
+    if (event.key == "ArrowLeft") {
         if (event.type == "keyup") {
             download();
             results = [];
@@ -193,7 +193,7 @@ function download() {
 
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = `text-timing-data(${downloads}).csv`;
+    downloadLink.download = `password-timing-data(${downloads}).csv`;
     downloadLink.style.display = 'none';
     document.body.appendChild(downloadLink);
 
