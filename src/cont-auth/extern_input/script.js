@@ -39,7 +39,7 @@ function on_event(event) {
         last_event = timestamp
     }
 
-    if (event.key == "F2") {
+    if (event.key == "F2" || event.key == "q" ) {
         if (event.type == "keyup") {
             download();
             results = [];
