@@ -62,6 +62,7 @@ function on_event(event) {
         if (event.type == "keyup") {
             // check that the password is correct
             if (input_field_element.value != ".tie5Roanl\n") {
+                console.log(current_data)
                 alert("wrong password: ", input_field_element.value);
             }
             // check that all events where captured
@@ -136,9 +137,11 @@ function on_event(event) {
                 // check that all necessary events were triggered
                 for (let i = 0; i < is.length; i++) {
                     if (current_data.length == 22 && i == 5) {
+                       
                         continue;
                     }
                     if (!is[0] || !is[1]) {
+                        console.log(current_data)
                         alert("Not all keys captured: ", i, is[0], is[1])
                         return;
                     }
