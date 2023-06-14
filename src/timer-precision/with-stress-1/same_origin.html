@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/timer-precision/styles.css">
+    <script src="/timer-precision/timer.js" type="text/javascript" id="timer_script"></script>
+    <script src="/timer-precision/with-stress-1/async_stress.js" type="text/javascript" id="timer_script"></script>
+    <title>Same Origin Timertest</title>
+</head>
+
+<body>
+    <div class="header">
+        <a class="header-link" href="/">Home</a>
+        <a class="header-link" href="/timer-precision/cross_origin.html">Unisolated Site - Extern Input</a>
+    </div>
+
+    <div class="content">
+        <h1 class="title">Browser Jitter on Isolated Site</h1>
+        <div class="status">
+            <div id="timer_script_src">Script Origin: </div>
+            <div id="isolated">Is isolated: </div>
+        </div>
+
+        <div class="input">
+            <button class="button button-big" onclick="button()">Take Time</button>
+        </div>
+
+        <div class="results">
+            <div class="results-control">
+                <div class="result-control-wrapper">
+                    <label class="result-control-label" for="counter">Counter:</label>
+                    <div class="result-control-data" id="counter">0</div>
+                </div>
+                <div class="result-control-wrapper">
+                    <label class="result-control-label" for="mean">Average(mean):</label>
+                    <div class="result-control-data" id="mean">0</div>
+                    <div>ms</div>
+                </div>
+                <div class="result-control-wrapper">
+                    <label class="result-control-label" for="min">Min:</label>
+                    <div class="result-control-data" id="min">0</div>
+                    <div>ms</div>
+                </div>
+                <div class="result-control-wrapper">
+                    <label class="result-control-label" for="max">Max:</label>
+                    <div class="result-control-data" id="max">0</div>
+                    <div>ms</div>
+                </div>
+
+                <div style="display: flex;width: 100%;justify-content: space-evenly;">
+                    <button class="button" onclick="show_results()">Show</button>
+                    <button class="button" onclick="clear_results()">Clear</button>
+                </div>
+
+            </div>
+
+            <button class="button button-download" onclick="download_raw()">Download</button>
+            <div class="results-wrapper">
+                <div class="results-results">
+                    <ul id="results"></ul>
+                </div>
+                <div class="results-results">
+                    <ul id="results-raw"></ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>
