@@ -48,7 +48,7 @@ function on_event(event) {
         }
         return;
     }
-
+    console.log(event)
     let data = [counter, password_counter, timestamp, timestamp - last_event, event.key, event.type];
 
     last_event = timestamp;
