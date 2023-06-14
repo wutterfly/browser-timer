@@ -116,3 +116,8 @@ ul {
 .button-download {
     align-self: center;
 }
+
+.button-big {
+    width: 150px;
+    height: 150px;
+}

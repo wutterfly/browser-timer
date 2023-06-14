@@ -4,142 +4,145 @@ window.addEventListener("load", () => {
 
     if (crossOriginIsolated) {
         isolated_element.style.color = "darkgreen";
+        file_suf = "isolated";
     } else {
         isolated_element.style.color = "darkred";
+        file_suf = "unisolated";
     }
 
     let src = document.getElementById("timer_script").src;
     document.getElementById("timer_script_src").innerHTML = "Script Origin: " + src;
 
-    localStorage.clear();
+    results_element = document.getElementById("results");
+    raw_results_element = document.getElementById("results-raw");
+    results_counter_element = document.getElementById("counter");
+    results_mean_element = document.getElementById("mean");
+    results_max_element = document.getElementById("max");
+    results_min_element = document.getElementById("min");
+
 });
 
-let should_stop = false;
-let running = false;
-let results_raw = [];
+let file_suf = undefined;
+let raw_results = [];
+let distances = [];
 
-function stop_timer() {
-    should_stop = true;
-}
+let raw_results_element = undefined;
+let results_element = undefined;
 
-async function timer() {
-    if (running) {
-        return;
-    } else {
-        running = true;
+let results_counter_element = undefined;
+let results_mean_element = undefined;
+let results_max_element = undefined;
+let results_min_element = undefined;
+
+function button() {
+    let timestamp = performance.now();
+
+    raw_results.push(timestamp);
+
+    let len = raw_results.length;
+
+    //append_raw(timestamp);
+
+
+    if (len == 1) {
+        //append_dif(0);
+        distances.push(0)
+        results_min_element.innerHTML = 0;
+        results_max_element.innerHTML = 0;
+        results_mean_element.innerHTML = 0;
     }
 
-    let raw_results_element = document.getElementById("results-raw");
-    clear_raw(raw_results_element);
+    if (len > 1) {
+        let current = raw_results[len-1];
+        let prev = raw_results[len - 2];
+        let dif = current - prev;
+        distances.push(dif)
+        //append_dif(dif);
 
-    let results = [];
-    results_raw = [];
-
-    let delay_ms = parseInt(document.getElementById("delay_input").value,10);
-    let iterations = document.getElementById("iter_input").value;
-
-    let counter_element = document.getElementById("counter");
-    let mean_element = document.getElementById("mean");
-    let min_element = document.getElementById("min");
-    let max_element = document.getElementById("max");
-
-    mean_element.innerHTML = 0;
-    min_element.innerHTML = 0;
-    max_element.innerHTML = 0;
+        let slice = distances.slice(1,distances.length);
+        let data = min_max_mean(slice);
 
 
-
-
-    for (let i = 1; i <= iterations; i++) {
-        if (should_stop) {
-            break;
-        }
-        counter_element.innerHTML = i;
-
-        let first;
-        let second;
-        let dif;
-        const delay_prom = delay(delay_ms);
-
-        if (delay_ms == 0) {
-            // first timestamp
-            first = performance.now();
-            // second time stamp
-            second = performance.now();
-
-            // calculate difference -> this should be (nearly) 0
-            dif = second - first;
-        } else {
-
-            // wait/sleep
-            const timestamps = await delay_prom;
-
-            // get timestamps
-            first = timestamps[0];
-            second = timestamps[1];
-
-            // calculate difference -> this should be (nearly) 0
-            dif = second - first; //- delay_ms;
-        }
-
-        // save difference
-        results.push(dif);
-
-        results_raw.push([first, second, delay_ms]);
-
-        // save raw timestamps
-        append_raw(raw_results_element, [first, second, delay_ms])
+        results_min_element.innerHTML = data[0];
+        results_max_element.innerHTML = data[1];
+        results_mean_element.innerHTML = data[2];
     }
 
-    let avg = mean(results);
-    let min__max = min_max(results);
-    let min = min__max[0];
-    let max = min__max[1];
+    results_counter_element.innerHTML = raw_results.length;
+}
 
-    mean_element.innerHTML = avg;
-    min_element.innerHTML = min;
-    max_element.innerHTML = max;
+function append_dif(timestamp) {
+    let listItem = document.createElement('li')
+    let time_element = document.createElement('div');
 
-    append_result(delay_ms, iterations, avg, min, max);
+    time_element.style.fontWeight = "bold";
 
-    should_stop = false;
-    running = false;
+    time_element.innerHTML = timestamp;
+
+    listItem.appendChild(time_element);
+
+
+
+    listItem.classList.add("result-raw");
+    results_element.appendChild(listItem);
+}
+
+function append_raw(timestamp) {
+    let listItem = document.createElement('li')
+    let time_element = document.createElement('div');
+
+    time_element.style.fontWeight = "bold";
+
+    time_element.innerHTML = timestamp;
+
+    listItem.appendChild(time_element);
+
+
+
+    listItem.classList.add("result-raw");
+    raw_results_element.appendChild(listItem);
+}
+
+function clear_results() {
+    document.getElementById("counter").innerHTML = 0;
+    document.getElementById("mean").innerHTML = 0;
+    document.getElementById("min").innerHTML = 0;
+    document.getElementById("max").innerHTML = 0;
+
+    while (raw_results_element.firstChild) {
+        raw_results_element.removeChild(raw_results_element.firstChild);
+    }
+
+    while (results_element.firstChild) {
+        results_element.removeChild(results_element.firstChild);
+    }
+
+    raw_results = [];
+    distances = [];
 
 }
 
-/** Sleep for milliseconds */
-async function delay(milliseconds) {
-    return await new Promise(resolve => {
-        const delay_start = performance.now();
-        setTimeout(() => {
-            const delay_end = performance.now();
-            resolve([delay_start, delay_end])
-        }, milliseconds);
-    });
+function show_results() {
+    for (let i = 0; i < raw_results.length; i++) {
+        append_raw(raw_results[i])
+    }
+
+    for (let i = 0; i < distances.length; i++) {
+        append_dif(distances[i])
+    }
 }
 
-/** calculate average(mean) */
-function mean(array) {
-    let len = 0;
+/** get min,max and mean */
+function min_max_mean(array) {
+    let min = undefined;
+    let max = undefined;
     let total = 0;
 
-    array.forEach((x) => {
-        len++;
-        total += x;
-    })
+    
 
+    for (let i = 0; i < array.length; i++) {
+        let x = array[i]
 
-    return total / len;
-
-}
-
-/** get min and max */
-function min_max(array) {
-    let min;
-    let max;
-
-    array.forEach((x) => {
-        // first iteration
         if (min == undefined && max == undefined) {
             min = x;
             max = x;
@@ -153,100 +156,27 @@ function min_max(array) {
             max = x;
         }
 
-        (min, max)
-    })
-
-
-    return [min, max];
-}
-
-function append_result(delay_ms, iter, avg, min, max) {
-    let listItem = document.createElement('li')
-    let delay_ms_item = document.createElement('div');
-    let iter_item = document.createElement('div');
-    let avg_item = document.createElement('div');
-    let min_item = document.createElement('div');
-    let max_item = document.createElement('div');
-
-    delay_ms_item.innerHTML = "Delay: " + delay_ms + "ms";
-    iter_item.innerHTML = "Iterations: " + iter;
-    avg_item.innerHTML = "Average(mean): " + avg + "ms";
-    min_item.innerHTML = "Min: " + min + "ms";
-    max_item.innerHTML = "Max: " + max + "ms";
-
-    listItem.appendChild(delay_ms_item);
-    listItem.appendChild(iter_item);
-    listItem.appendChild(avg_item);
-    listItem.appendChild(min_item);
-    listItem.appendChild(max_item);
-
-    listItem.classList.add("results-summary");
-    document.getElementById("results").appendChild(listItem);
-}
-
-function clear_results() {
-    document.getElementById("counter").innerHTML = 0;
-    document.getElementById("mean").innerHTML = 0;
-    document.getElementById("min").innerHTML = 0;
-    document.getElementById("max").innerHTML = 0;
-
-    clear_raw(document.getElementById("results-raw"));
-
-    let element = document.getElementById("results");
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
+        total += x;
     }
 
-}
 
-function append_raw(raw_results_element, data) {
-    let first = data[0];
-    let second = data[1];
-    let delay = data[2];
-    let dif = second - first ;//- delay;
+    mean = total / array.length
 
-    let listItem = document.createElement('li')
-    let dif_element = document.createElement('div');
-    let first_element = document.createElement('div');
-    let second_element = document.createElement('div');
-
-    dif_element.style.fontWeight = "bold";
-
-
-    dif_element.innerHTML = dif;
-    first_element.innerHTML = first;
-    second_element.innerHTML = second;
-
-    listItem.appendChild(dif_element);
-    listItem.appendChild(first_element);
-    listItem.appendChild(second_element);
-
-
-    listItem.classList.add("result-raw");
-    raw_results_element.appendChild(listItem);
-}
-
-function clear_raw(raw_results_element) {
-    while (raw_results_element.firstChild) {
-        raw_results_element.removeChild(raw_results_element.firstChild);
-    }
-
-    results_raw = [];
+    return [min, max, mean];
 }
 
 function download_raw() {
-    const results = results_raw;
-    if (results == undefined) {
+    if (raw_results == undefined) {
         alert("No results!");
         return;
     }
-    const csv = to_csv(results);
+    const csv = to_csv(raw_results, distances);
 
     const blob = new Blob([csv], { type: 'text/plain' });
 
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = `browser-timing-data.csv`;
+    downloadLink.download = `browser-timing-data-${file_suf}.csv`;
     downloadLink.style.display = 'none';
     document.body.appendChild(downloadLink);
 
@@ -255,13 +185,13 @@ function download_raw() {
     document.body.removeChild(downloadLink);
 }
 
-function to_csv(results_raw) {
-    let output = "first,second,delay\n";
+function to_csv(results_raw, distances) {
+    let output = "timestamp,distance\n";
 
 
-    results_raw.forEach((row) => {
-        output += `${row[0]},${row[1]},${row[2]}\n`;
-    })
+    for (let i = 0; i < results_raw.length; i++) {
+        output += `${results_raw[i]},${distances[i]}\n`;
+    }
 
 
     return output;

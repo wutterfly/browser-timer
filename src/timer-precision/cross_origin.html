@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/timer-precision/styles.css">
     <script src="https://wutterfly.com:8080/timer-precision/timer.js" type="text/javascript" id="timer_script"></script>
+    
     <title>Cross Origin Timertest</title>
 </head>
 
 <body>
     <div class="header">
         <a class="header-link" href="/">Home</a>
-        <a class="header-link" href="/timer-precision/same_origin.html">Isolated Site</a>
+        <a class="header-link" href="/timer-precision/same_origin.html">Isolated Site - Extern Input</a>
     </div>
 
     <div class="content">
@@ -24,22 +25,7 @@
         </div>
 
         <div class="input">
-            <div class="input-fields">
-                <div class="input-field-wrapper">
-                    <label class="input-field-label" for="timer_input">Delay(ms):</label>
-                    <input class="input-field" type="number" id="delay_input" value="100">
-                </div>
-
-                <div class="input-field-wrapper">
-                    <label class="input-field-label" for="iter_input">Iterations:</label>
-                    <input class="input-field" type="number" id="iter_input" min="1" value="100">
-                </div>
-            </div>
-            <div>
-
-                <button class="button" onclick="timer()">Start</button>
-                <button class="button" onclick="stop_timer()">Stop</button>
-            </div>
+            <button class="button button-big" onclick="button()">Take Time</button>
         </div>
 
         <div class="results">
@@ -64,16 +50,23 @@
                     <div>ms</div>
                 </div>
 
-                <button class="button" onclick="clear_results()">Clear</button>
+                <div style="display: flex;width: 100%;justify-content: space-evenly;">
+                    <button class="button" onclick="show_results()">Show</button>
+                    <button class="button" onclick="clear_results()">Clear</button>
+                </div>
 
             </div>
+
+            <button class="button button-download" onclick="download_raw()">Download</button>
             <div class="results-wrapper">
-                <ul class="results-results" id="results"></ul>
                 <div class="results-results">
-                    <button class="button button-download" onclick="download_raw()">Download</button>
+                    <ul id="results"></ul>
+                </div>
+                <div class="results-results">
                     <ul id="results-raw"></ul>
                 </div>
             </div>
+
 
         </div>
     </div>
