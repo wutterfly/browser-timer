@@ -39,7 +39,7 @@ function on_event(event) {
         last_event = timestamp
     }
 
-    if (event.key == "ArrowLeft") {
+    if (event.key == "ArrowLeft" || event.key == "Escape") {
         if (event.type == "keyup") {
             download();
             results = [];
