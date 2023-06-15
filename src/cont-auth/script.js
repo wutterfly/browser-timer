@@ -34,6 +34,7 @@ let downloads = 0;
 
 function on_event(event) {
     let timestamp = performance.now();
+    console.log(event)
     if (last_event == undefined) {
         last_event = timestamp
     }
