@@ -34,7 +34,7 @@ let downloads = 0;
 
 function on_event(event) {
     let timestamp = performance.now();
-    //console.log(event)
+    console.log(event)
     if (last_event == undefined) {
         last_event = timestamp
     }
@@ -51,7 +51,7 @@ function on_event(event) {
     }
 
     // check for warmup ky
-    if (event.key == 'Delete' || event.code == 'Delete') {
+    if (event.key == 'Delete' || event.code == 'Delete' || event.key == 'q' || event.code == 'KeyQ') {
         console.log("Warm up")
         input_field_element.value = "";
         return;
