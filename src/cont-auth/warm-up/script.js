@@ -52,6 +52,7 @@ function on_event(event) {
 
     // check for warmup ky
     if (event.key == 'Delete' || event.code == 'Delete' || event.key == 'q' || event.code == 'KeyQ') {
+        
         console.log("Warm up")
         input_field_element.value = "";
         return;
