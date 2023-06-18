@@ -19,7 +19,6 @@ async function generate_stress() {
                         _mouseDown = true;
                         _mouseX = random % 30;
                         _mouseY = random % 30;
-                        console.log("input")
                         element.click();
                     })
                 )
