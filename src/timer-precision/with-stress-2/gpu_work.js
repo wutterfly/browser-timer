@@ -17,9 +17,10 @@ async function generate_stress() {
                     resolveTimer(100).then(() => {
                         let random = performance.now()
                         _mouseDown = true;
-                        _mouseX = random % 30;
-                        _mouseY = random % 30;
-                        element.click();
+                        _mouseX = random % 200;
+                        _mouseY = -(random % 200);
+                       // animate();
+                        //element.click();
                     })
                 )
         
