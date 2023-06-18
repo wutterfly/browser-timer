@@ -28,4 +28,4 @@ async function generate_stress() {
 
 function resolveTimer(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}

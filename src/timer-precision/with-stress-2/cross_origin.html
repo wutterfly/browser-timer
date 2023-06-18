@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/timer-precision/styles.css">
-    <script src="/timer-precision/timer.js" type="text/javascript" id="timer_script"></script>
-    <script src="/timer-precision/with-stress-1/async_stress.js" type="text/javascript" id="stress_script"></script>
-    <title>Same Origin Timertest</title>
+    <script src="https://wutterfly.com:8080/timer-precision/timer.js" type="text/javascript" id="timer_script"></script>
+    <script src="/timer-precision/with-stress-2/gpu_work.js" type="module" id="stress_script"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.3.4/pixi.min.js" type="text/javascript"></script>
+    <title>Cross Origin Timertest</title>
 </head>
 
 <body>
     <div class="header">
         <a class="header-link" href="/">Home</a>
-        <a class="header-link" href="/timer-precision/with-stress-1/cross_origin.html">Unisolated Site - With Stress</a>
+        <a class="header-link" href="/timer-precision/with-stress-2/same_origin.html">Isolated Site - With GPU
+            Stress</a>
     </div>
 
     <div class="content">
-        <h1 class="title">Browser Jitter on Isolated Site</h1>
+        <h1 class="title">Browser Jitter on Unisolated Site</h1>
         <div class="status">
             <div id="timer_script_src">Script Origin: </div>
             <div id="isolated">Is isolated: </div>
@@ -71,6 +73,14 @@
         </div>
     </div>
 
+
+
+
+
+    <div id="canvas-holder" style="display: block;"></div>
+
 </body>
+
+
 
 </html>

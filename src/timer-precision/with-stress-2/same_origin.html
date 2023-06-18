@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/timer-precision/styles.css">
     <script src="/timer-precision/timer.js" type="text/javascript" id="timer_script"></script>
-    <script src="/timer-precision/with-stress-1/async_stress.js" type="text/javascript" id="stress_script"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.3.4/pixi.min.js"></script>
+    <script src="/timer-precision/with-stress-2/gpu_work.js" type="module" id="stress_script"></script>
     <title>Same Origin Timertest</title>
 </head>
 
 <body>
     <div class="header">
         <a class="header-link" href="/">Home</a>
-        <a class="header-link" href="/timer-precision/with-stress-1/cross_origin.html">Unisolated Site - With Stress</a>
+        <a class="header-link" href="/timer-precision/with-stress-2/cross_origin.html">Unisolated Site - With GPU
+            Stress</a>
     </div>
 
     <div class="content">
@@ -70,6 +72,12 @@
 
         </div>
     </div>
+
+
+
+
+    <div id="canvas-holder"></div>
+
 
 </body>
 
