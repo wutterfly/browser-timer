@@ -96,7 +96,7 @@ function on_event(event) {
 
                 // there should be a total of 24 events (12 keys down->up)
                 // on tor there is no extra shift -> 11 keys
-                if (current_data.length != 24 && current_data.length != 22 && current_data.length != 32 && current_data.length != 40) {
+                if (current_data.length != 24 && current_data.length != 22 && current_data.length != 40 && current_data.length != 38) {
                     console.log(current_data);
                     console.log("Current len: ", current_data.length);
                     alert("Not all keys captured.");
@@ -105,7 +105,7 @@ function on_event(event) {
                 let i = 0;
 
                 if (current_data.length > 24) {
-                    i = 8;
+                    i += 16;
                 }
 
                 // save all events that were triggered
