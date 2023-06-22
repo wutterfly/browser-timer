@@ -53,9 +53,9 @@ function on_event(event) {
     // check for warmup ky
     if (event.key == 'Delete' || event.code == 'Delete' || event.key == 'q' || event.code == 'KeyQ') {
         
-        console.log("Warm up")
-        input_field_element.value = "";
-        return;
+        //console.log("Warm up")
+        //input_field_element.value = "";
+        //sreturn;
     }
 
     let data = [counter, password_counter, timestamp, timestamp - last_event, event.key, event.type];
@@ -96,14 +96,20 @@ function on_event(event) {
 
                 // there should be a total of 24 events (12 keys down->up)
                 // on tor there is no extra shift -> 11 keys
-                if (current_data.length != 24 && current_data.length != 22) {
+                if (current_data.length != 24 && current_data.length != 22 && current_data.length != 32 && current_data.length != 40) {
                     console.log(current_data);
                     console.log("Current len: ", current_data.length);
                     alert("Not all keys captured.");
                 }
 
+                let i = 0;
+
+                if (current_data.length > 24) {
+                    i = 8;
+                }
+
                 // save all events that were triggered
-                for (let i = 0; i < current_data.length; i++) {
+                for (i; i < current_data.length; i++) {
                     let event = [current_data];
                     let key = event[0];
                     let type = event[1];
