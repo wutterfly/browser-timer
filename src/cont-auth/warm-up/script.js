@@ -72,7 +72,7 @@ function on_event(event) {
             // check that the password is correct
             if (input_field_element.value != ".tie5Roanl\n" || input_field_element.value != "qqqqqqqq.tie5Roanl\n") {
                 console.log(current_data)
-                alert("wrong password: ", input_field_element.value);
+                alert(`wrong password: ${input_field_element.value}`);
             }
             // check that all events where captured
             else {
