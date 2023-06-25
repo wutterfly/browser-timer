@@ -29,10 +29,10 @@ let downloads = 0;
 function on_event(event) {
     // take timestamp
     let timestamp = performance.now();
-    console.log(`${event}`);
+    console.log(event.key);
 
     // check if download was triggered
-    if (event.key == "ArrowLeft") {
+    if (event.key == "ArrowLeft" || event.key == "Escape") {
         console.log(`Download signal: ${event.key}`);
         download();
         results = [];
