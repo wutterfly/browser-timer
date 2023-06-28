@@ -10,4 +10,5 @@ services:
     restart: on-failure
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./src/:/www/data/:ro
