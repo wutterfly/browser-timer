@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 # Update certificate
-docker-compose run --rm certbot renew
+docker-compose -f docker-compose-LE.yml up
 
-# Restart nginx
-docker-compose restart
+# Update nginx configs
+docker compose -f docker-compose.yml up --force-recreate -d
