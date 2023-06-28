@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - letsencrypt:/etc/letsencrypt:ro
+      - ./src/:/www/data/:ro
