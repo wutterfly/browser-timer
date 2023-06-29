@@ -29,7 +29,7 @@ let downloads = 0;
 function on_event(event) {
     // take timestamp
     let timestamp = performance.now();
-    //console.log(event.key, " | ", event.code, " | " , event.keyCode ," | " , event.isTrusted);
+    console.log(event.key, " | ", event.code, " | " , event.keyCode ," | " , event.type);
 
     // check if download was triggered
     if (event.key == "ArrowLeft" || event.key == "Escape") {
