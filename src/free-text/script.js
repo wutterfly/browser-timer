@@ -41,11 +41,10 @@ function on_event(event) {
     }
 
     let data = [timestamp, event.key, event.type];
-
     if (event.key  ==  ",") {
         data[1]  = ",";
-        console.log(data)
     }
+    console.log(data)
 
     results.push(data);
 }
