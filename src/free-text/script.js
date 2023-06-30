@@ -42,7 +42,7 @@ function on_event(event) {
 
     let data = [timestamp, event.key, event.type];
     if (event.key  ==  ",") {
-        data[1]  = ",";
+        data[1]  = `","`;
     }
     console.log(data)
 
