@@ -29,11 +29,11 @@ let downloads = 0;
 function on_event(event) {
     // take timestamp
     let timestamp = performance.now();
-    console.log(event.key, " | ", event.code, " | " , event.keyCode ," | " , event.type);
+    // console.log(event.key, " | ", event.code, " | " , event.keyCode ," | " , event.type);
 
     // check if download was triggered
     if (event.key == "ArrowLeft" || event.key == "Escape") {
-        console.log(`Download signal: ${event.key}`);
+        //console.log(`Download signal: ${event.key}`);
         download();
         results = [];
         input_field_element.value = "";
@@ -44,7 +44,6 @@ function on_event(event) {
     if (event.key  ==  ",") {
         data[1]  = `","`;
     }
-    console.log(data)
 
     results.push(data);
 }
