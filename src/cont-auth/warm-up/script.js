@@ -34,7 +34,7 @@ let downloads = 0;
 
 function on_event(event) {
     let timestamp = performance.now();
-    console.log(event.key)
+    //console.log(event.key)
     if (last_event == undefined) {
         last_event = timestamp
     }
@@ -50,12 +50,12 @@ function on_event(event) {
         return;
     }
 
-    // check for warmup ky
+    // check for warmup key
     if (event.key == 'Delete' || event.code == 'Delete' || event.key == 'q' || event.code == 'KeyQ') {
         
         //console.log("Warm up")
         //input_field_element.value = "";
-        //sreturn;
+        return;
     }
 
     let data = [counter, password_counter, timestamp, timestamp - last_event, event.key, event.type];
@@ -72,7 +72,8 @@ function on_event(event) {
             // check that the password is correct
             if (input_field_element.value != ".tie5Roanl\n" && input_field_element.value != "qqqqqqqq.tie5Roanl\n") {
                 console.log(current_data)
-                alert(`wrong password: ${input_field_element.value}`);
+                console.log(input_field_element.value)
+                alert(`wrong password\nSee Console for more info!`);
             }
             // check that all events where captured
             else {
