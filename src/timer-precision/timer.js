@@ -20,6 +20,9 @@ window.addEventListener("load", () => {
     results_max_element = document.getElementById("max");
     results_min_element = document.getElementById("min");
 
+    input_field_element = document.getElementById("input-field");
+    input_field_element.addEventListener("keydown", on_event);
+
 });
 
 let file_suf = undefined;
@@ -34,32 +37,25 @@ let results_mean_element = undefined;
 let results_max_element = undefined;
 let results_min_element = undefined;
 
-function button() {
+function on_event() {
     let timestamp = performance.now();
-
     raw_results.push(timestamp);
 
     let len = raw_results.length;
 
-    //append_raw(timestamp);
-
 
     if (len == 1) {
-        //append_dif(0);
         distances.push(0)
         results_min_element.innerHTML = 0;
         results_max_element.innerHTML = 0;
         results_mean_element.innerHTML = 0;
-    }
-
-    if (len > 1) {
+    } else if (len > 1) {
         let current = raw_results[len-1];
         let prev = raw_results[len - 2];
         let dif = current - prev;
         distances.push(dif)
-        //append_dif(dif);
 
-        let slice = distances.slice(1,distances.length);
+        let slice = distances.slice(1, distances.length);
         let data = min_max_mean(slice);
 
 

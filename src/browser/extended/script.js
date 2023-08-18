@@ -20,10 +20,8 @@ window.addEventListener("load", () => {
     input_field_element.addEventListener("keyup", on_event);
 
 
-    document.getElementById("listen_input").innerHTML = ` "${ListenKey}"`;
 });
 
-const ListenKey = '0';
 
 let input_field_element = undefined;
 let events_element = undefined;
@@ -32,11 +30,10 @@ let results = [];
 
 function on_event(event) {
     let now = performance.now();
-    if (event.key == ListenKey) {
-        if (results.length < 200) {
-            results.push([now/1000, event.key, event.type]);
-        }
-    }
+        
+    results.push([now/1000, event.key, event.type]);
+        
+    
 }
 
 function show_all() {
