@@ -79,21 +79,21 @@ function on_event(event) {
                     warmup = true;
 
                 default:
-                    console.log(input_field_element.value);
-                    alert(`wrong password\nSee Console for more info!`);
+                    //console.log(input_field_element.value);
+                    //alert(`wrong password\nSee Console for more info!`);
             }
 
             // check that all events where captured
             if (warmup && (current_data.length != 40 && current_data.length != 38)) {
-                console.log(current_data);
-                console.log("Current len: ", current_data.length, 'Should len: 38/40');
-                alert("Not all keys captured.");
+                //console.log(current_data);
+                //console.log("Current len: ", current_data.length, 'Should len: 38/40');
+                //alert("Not all keys captured.");
             } else if (current_data.length != 24 && current_data.length != 22) {
-                console.log(current_data);
-                console.log("Current len: ", current_data.length, 'Should len: 22/24');
-                alert("Not all keys captured.");
+                //console.log(current_data);
+                //console.log("Current len: ", current_data.length, 'Should len: 22/24');
+                //alert("Not all keys captured.");
             }
-            
+
             current_data.length = 0;
             input_field_element.value = "";
             password_counter += 1;
