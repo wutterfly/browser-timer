@@ -75,15 +75,18 @@ function on_event(event) {
                 case ".tie5Roanl\n":
                     warmup = false;
                     console.log('correct')
+                    break;
 
                 case "qqqqqqqq.tie5Roanl\n":
                     warmup = true;
                     console.log('correct with warmup')
+                    break;
 
                 default:
                     console.log('wrong password')
                     console.log(input_field_element.value);
                     //alert(`wrong password\nSee Console for more info!`);
+                    break;
             }
 
             // check that all events where captured
