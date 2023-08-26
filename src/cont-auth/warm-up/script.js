@@ -85,18 +85,18 @@ function on_event(event) {
                 default:
                     console.log('wrong password')
                     console.log(input_field_element.value);
-                    //alert(`wrong password\nSee Console for more info!`);
+                    alert(`wrong password\nSee Console for more info!`);
                     break;
             }
 
             // check that all events where captured
             if (warmup && (current_data.length != 40 && current_data.length != 38)) {
-                //console.log(current_data);
-                //console.log("Current len: ", current_data.length, 'Should len: 38/40');
+                console.log(current_data);
+                console.log("Current len: ", current_data.length, 'Should len: 38/40');
                 //alert("Not all keys captured.");
             } else if (current_data.length != 24 && current_data.length != 22) {
-                //console.log(current_data);
-                //console.log("Current len: ", current_data.length, 'Should len: 22/24');
+                console.log(current_data);
+                console.log("Current len: ", current_data.length, 'Should len: 22/24');
                 //alert("Not all keys captured.");
             }
 
