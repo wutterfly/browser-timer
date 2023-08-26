@@ -40,7 +40,7 @@ function on_event(event) {
     }
 
     // check for downlaod key
-    if (event.key == "ArrowLeft" || event.key == "Escape") {
+    if (event.key == "Escape") {
         if (event.type == "keyup") {
             download();
             results.length = 0; // changed (keeping allocation?)
@@ -51,7 +51,7 @@ function on_event(event) {
     }
 
     // check for warmup key
-    if (event.key == 'Delete' || event.code == 'Delete' || event.key == 'q' || event.code == 'KeyQ') {
+    if (event.key == 'q' || event.code == 'KeyQ') {
 
         //console.log("Warm up")
         //input_field_element.value = "";
