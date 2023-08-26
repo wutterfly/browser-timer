@@ -74,12 +74,12 @@ function on_event(event) {
             switch (input_field_element.value) {
                 case ".tie5Roanl\n":
                     warmup = false;
-                    console.log('correct')
+                    //console.log('correct')
                     break;
 
                 case "qqqqqqqq.tie5Roanl\n":
                     warmup = true;
-                    console.log('correct with warmup')
+                    //console.log('correct with warmup')
                     break;
 
                 default:
