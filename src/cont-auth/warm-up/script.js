@@ -75,7 +75,7 @@ function on_event(event) {
                 alert(`wrong password\nSee Console for more info!`);
             }
             // check that all events where captured
-            else {
+            
                 
                 // mask for all necessary events (should all become true)
                 map = ['.', 't', 'i', 'e', '5', 'Shift', 'R', 'o', 'a', 'n', 'l', 'Enter']
@@ -173,7 +173,7 @@ function on_event(event) {
                 input_field_element.value = "";
                 password_counter += 1;
 
-            }
+            
         }
 
     }
