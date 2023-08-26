@@ -70,13 +70,13 @@ function on_event(event) {
         if (event.type == "keyup") {
             // check that the password is correct
             if (input_field_element.value != ".tie5Roanl\n" && input_field_element.value != "qqqqqqqq.tie5Roanl\n") {
-                console.log(current_data)
+                //console.log(current_data)
                 console.log(input_field_element.value)
                 alert(`wrong password\nSee Console for more info!`);
             }
             // check that all events where captured
             
-                
+            console.log('xxx')
                 // mask for all necessary events (should all become true)
                 map = ['.', 't', 'i', 'e', '5', 'Shift', 'R', 'o', 'a', 'n', 'l', 'Enter']
                 is = [
