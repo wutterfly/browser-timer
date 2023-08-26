@@ -66,7 +66,6 @@ function on_event(event) {
     results.push(data);
 
     current_data.push([event.key, event.type])
-
     if (event.key == "Enter") {
         if (event.type == "keyup") {
             // check that the password is correct
@@ -77,8 +76,9 @@ function on_event(event) {
             }
             // check that all events where captured
             else {
-
+                
                 // mask for all necessary events (should all become true)
+                map = ['.', 't', 'i', 'e', '5', 'Shift', 'R', 'o', 'a', 'n', 'l', 'Enter']
                 is = [
                     [false, false], // .
                     [false, false], // t
@@ -94,6 +94,7 @@ function on_event(event) {
                     [false, false], // \n
 
                 ]
+
 
                 // there should be a total of 24 events (12 keys down->up)
                 // on tor there is no extra shift -> 11 keys
@@ -154,14 +155,15 @@ function on_event(event) {
 
                 // check that all necessary events were triggered
                 for (let i = 0; i < is.length; i++) {
+                    // shift gets ignored
                     if (current_data.length == 22 && i == 5) {
-
                         continue;
                     }
+
                     if (!is[0] || !is[1]) {
-                        console.log("Missing: ", is[0] ,"| ", is[1]);
-                        console.log(current_data);
-                        alert("Not all keys captured: ", i, is[0], is[1]);
+                        console.log("Missing: ", is[0] ," | ", is[1]);
+                        //console.log(current_data);
+                        alert("Not all keys captured: ", map[i], is[0], is[1]);
                         return;
                     }
                 }
@@ -250,3 +252,5 @@ function show_all() {
         append_event(results[i])
     }
 }
+
+
