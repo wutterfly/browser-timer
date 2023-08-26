@@ -52,7 +52,7 @@ function on_event(event) {
 
     // check for warmup key
     if (event.key == 'Delete' || event.code == 'Delete' || event.key == 'q' || event.code == 'KeyQ') {
-        
+
         //console.log("Warm up")
         //input_field_element.value = "";
         return;
@@ -68,112 +68,37 @@ function on_event(event) {
     current_data.push([event.key, event.type])
     if (event.key == "Enter") {
         if (event.type == "keyup") {
+
+            let warmup;
             // check that the password is correct
-            if (input_field_element.value != ".tie5Roanl\n" && input_field_element.value != "qqqqqqqq.tie5Roanl\n") {
-                //console.log(current_data)
-                console.log(input_field_element.value)
-                alert(`wrong password\nSee Console for more info!`);
+            switch (input_field_element.value) {
+                case ".tie5Roanl\n":
+                    warmup = false;
+
+                case "qqqqqqqq.tie5Roanl\n":
+                    warmup = true;
+
+                default:
+                    console.log(input_field_element.value);
+                    alert(`wrong password\nSee Console for more info!`);
             }
+
             // check that all events where captured
+            if (warmup && (current_data.length != 40 && current_data.length != 38)) {
+                console.log(current_data);
+                console.log("Current len: ", current_data.length, 'Should len: 38/40');
+                alert("Not all keys captured.");
+            } else if (current_data.length != 24 && current_data.length != 22) {
+                console.log(current_data);
+                console.log("Current len: ", current_data.length, 'Should len: 22/24');
+                alert("Not all keys captured.");
+            }
             
-            console.log('xxx')
-                // mask for all necessary events (should all become true)
-                map = ['.', 't', 'i', 'e', '5', 'Shift', 'R', 'o', 'a', 'n', 'l', 'Enter']
-                is = [
-                    [false, false], // .
-                    [false, false], // t
-                    [false, false], // i
-                    [false, false], // e
-                    [false, false], // 5
-                    [false, false], // Shift
-                    [false, false], // R
-                    [false, false], // o
-                    [false, false], // a
-                    [false, false], // n
-                    [false, false], // l
-                    [false, false], // \n
-
-                ]
+            current_data.length = 0;
+            input_field_element.value = "";
+            password_counter += 1;
 
 
-                // there should be a total of 24 events (12 keys down->up)
-                // on tor there is no extra shift -> 11 keys
-                if (current_data.length != 24 && current_data.length != 22 && current_data.length != 40 && current_data.length != 38) {
-                    console.log(current_data);
-                    console.log("Current len: ", current_data.length);
-                    alert("Not all keys captured.");
-                }
-
-                let i = 0;
-
-                if (current_data.length > 24) {
-                    i += 16;
-                }
-
-                // save all events that were triggered
-                for (i; i < current_data.length; i++) {
-                    let event = [current_data];
-                    let key = event[0];
-                    let type = event[1];
-
-                    if (key == "." && type == "keydown") { is[0][0] = true }
-                    if (key == "." && type == "keyup") { is[0][1] = true }
-
-                    if (key == "t" && type == "keydown") { is[1][0] = true }
-                    if (key == "t" && type == "keyup") { is[1][1] = true }
-
-                    if (key == "i" && type == "keydown") { is[2][0] = true }
-                    if (key == "i" && type == "keyup") { is[2][1] = true }
-
-                    if (key == "e" && type == "keydown") { is[3][0] = true }
-                    if (key == "e" && type == "keyup") { is[3][1] = true }
-
-                    if (key == "5" && type == "keydown") { is[4][0] = true }
-                    if (key == "5" && type == "keyup") { is[4][1] = true }
-
-                    if (key == "Shift" && type == "keydown") { is[5][0] = true }
-                    if (key == "Shift" && type == "keyup") { is[5][1] = true }
-
-                    if (key == "R" && type == "keydown") { is[6][0] = true }
-                    if (key == "r" && type == "keyup") { is[6][1] = true }
-
-                    if (key == "o" && type == "keydown") { is[7][0] = true }
-                    if (key == "o" && type == "keyup") { is[7][1] = true }
-
-                    if (key == "a" && type == "keydown") { is[8][0] = true }
-                    if (key == "a" && type == "keyup") { is[8][1] = true }
-
-                    if (key == "n" && type == "keydown") { is[9][0] = true }
-                    if (key == "n" && type == "keyup") { is[9][1] = true }
-
-                    if (key == "l" && type == "keydown") { is[10][0] = true }
-                    if (key == "l" && type == "keyup") { is[10][1] = true }
-
-                    if (key == "Enter" && type == "keydown") { is[11][0] = true }
-                    if (key == "Enter" && type == "keyup") { is[11][1] = true }
-                }
-
-                // check that all necessary events were triggered
-                for (let i = 0; i < is.length; i++) {
-                    // shift gets ignored
-                    if (current_data.length == 22 && i == 5) {
-                        continue;
-                    }
-
-                    if (!is[0] || !is[1]) {
-                        console.log("Missing: ", is[0] ," | ", is[1]);
-                        //console.log(current_data);
-                        alert("Not all keys captured: ", map[i], is[0], is[1]);
-                        return;
-                    }
-                }
-
-                //console.log("All correct!");
-                current_data.length = 0;
-                input_field_element.value = "";
-                password_counter += 1;
-
-            
         }
 
     }
