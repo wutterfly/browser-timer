@@ -83,9 +83,8 @@ function on_event(event) {
                     break;
 
                 default:
-                    console.log('wrong password')
-                    console.log(input_field_element.value);
-                    alert(`wrong password\nSee Console for more info!`);
+                    console.log(`wrong password: ${input_field_element.value}`)
+                    //alert(`wrong password\nSee Console for more info!`);
                     break;
             }
 
