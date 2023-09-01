@@ -55,7 +55,7 @@ function on_event(event) {
 
         //console.log("Warm up")
         //input_field_element.value = "";
-        return;
+        //return;
     }
 
     let data = [counter, password_counter, timestamp, timestamp - last_event, event.key, event.type];
