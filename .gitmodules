@@ -1,0 +1,3 @@
+[submodule "browser-timer-ws"]
+	path = browser-timer-ws
+	url = git@github.com:wutterfly/browser-timer-ws.git
