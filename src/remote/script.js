@@ -23,11 +23,11 @@ window.addEventListener("load", () => {
 });
 
 function on_key_event(event) {
-    console.log(event.key, " | ", event.code, " | ", event.keyCode, " | ", event.type);
+    //console.log(event.key, " | ", event.code, " | ", event.keyCode, " | ", event.type);
 
     websocket.send(`${DATA_MSG} ${event.key} ${event.keyCode} ${event.type}`)
 
-    
+    // ESC
     if (event.keyCode == 27 && event.type == "keyup") {
         input_field_element.value = "";
     }
