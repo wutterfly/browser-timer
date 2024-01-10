@@ -79,7 +79,7 @@ impl DataHolder {
         self.rtt = rtt;
     }
 
-    pub fn push(&mut self, value: Data) -> std::io::Result<()> {
+    pub async fn push(&mut self, value: Data) -> std::io::Result<()> {
         log::trace!("value: {value:?}");
         // if write out
         if let Some(on) = &self.write_on {
@@ -90,7 +90,7 @@ impl DataHolder {
                     log::info!("Writing data to file");
                     self.buffer.push(value);
 
-                    return self.flush();
+                    return self.flush().await;
                 }
             }
         }
@@ -101,7 +101,7 @@ impl DataHolder {
         Ok(())
     }
 
-    pub fn flush(&mut self) -> std::io::Result<()> {
+    pub async fn flush(&mut self) -> std::io::Result<()> {
         let file_name = format!(
             "{}_{}_{}.csv",
             self.out_prefix, self.connection_counter, self.file_counter
@@ -113,6 +113,8 @@ impl DataHolder {
             .write(true)
             .truncate(true)
             .open(path)?;
+
+        // TODO: make file write async
 
         let mut out = BufWriter::new(f);
 

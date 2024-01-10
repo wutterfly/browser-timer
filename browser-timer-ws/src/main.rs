@@ -41,6 +41,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // prepare data output
     let dist = Distributer::new(
         Some(WriteOn::Filter(Arc::new(|data| {
+            // on escape key up
             data.key_code == 27 && data.typ == EventTyp::KeyUp
         }))),
         PathBuf::from("./output"),

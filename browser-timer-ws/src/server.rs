@@ -103,7 +103,9 @@ impl Server {
         let mut ping = PingPong::new();
 
         loop {
+            // check if message could be processed or a ping should be sent to client
             tokio::select! {
+                // handle message
                 msg = ws_receiver.next() => {
                     if let Some(msg) = msg {
                         // check if closed
@@ -118,10 +120,12 @@ impl Server {
                 }
                 _ = interval.tick() => {
 
+                    // close unanswered ping
                     if let Err((c, elapsed)) = ping.close(){
                         log::warn!("current ping still open: [{c}] - {elapsed}ms");
                     }
 
+                    // send next ping
                     match ping.next() {
                         Ok(i) => {
                             ws_sender
@@ -153,6 +157,7 @@ impl Server {
             let msg = TimerMessage::try_from(txt.as_str())?;
 
             match msg {
+                // response to ping message
                 TimerMessage::Pong { i } => match ping.finish(i) {
                     Ok(rtt) => {
                         ws_sender
@@ -164,18 +169,23 @@ impl Server {
                     Err(None) => log::warn!("no ping requested"),
                 },
 
+                // new keystrokes
                 TimerMessage::Data { key, key_code, typ } => {
+                    // take timestamp first
                     let timestamp = now();
 
+                    // make timestamp relative to first timestamp
                     #[allow(clippy::cast_possible_truncation)]
                     let relativ = (timestamp - data.first_timestamp()) as u64;
 
+                    // push data to be written out
                     data.push(Data {
                         key,
                         timestamp: relativ,
                         typ,
                         key_code,
-                    })?;
+                    })
+                    .await?;
                 }
 
                 _ => unreachable!(),
