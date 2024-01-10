@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - /etc/ssl/private/selfsigned.key:/etc/ssl/private/key.pem:ro
+      - /etc/ssl/certs/selfsigned.crt:/etc/ssl/certs/cert.pem:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./src/:/www/data/:ro
+
+  server:
+    build: ./browser-timer-ws/
+    restart: unless-stopped
+    ports:
+      - 8021:8021
+    volumes:
+      - ./browser-timer-ws/output:/output
