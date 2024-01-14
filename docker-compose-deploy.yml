@@ -7,10 +7,10 @@ services:
       - 80:80
       - 443:443
       - 8080:8080
-    restart: on-failure
+    restart: unless-stopped
     volumes:
-      - /etc/ssl/private/selfsigned.key:/etc/ssl/private/key.pem:ro
-      - /etc/ssl/certs/selfsigned.crt:/etc/ssl/certs/cert.pem:ro
+      - /etc/letsencrypt/live/ecs-80-158-49-124.reverse.open-telekom-cloud.com/privkey.pem:/etc/ssl/private/key.pem:ro
+      - /etc/letsencrypt/live/ecs-80-158-49-124.reverse.open-telekom-cloud.com/fullchain.pem:/etc/ssl/certs/cert.pem:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./src/:/www/data/:ro
 
