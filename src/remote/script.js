@@ -17,7 +17,7 @@ window.addEventListener("load", () => {
     input_field_element.addEventListener("keydown", on_key_event)
     input_field_element.addEventListener("keyup", on_key_event)
 
-    websocket = new WebSocket("wss://wutterfly.com/server");
+    websocket = new WebSocket("wss://80.158.49.124/server");
 
     websocket.onmessage = on_message;
 });
