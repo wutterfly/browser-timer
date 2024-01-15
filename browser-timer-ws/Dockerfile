@@ -1,7 +1,7 @@
 
 ARG APP_NAME=browser-timer-ws
 
-FROM rust:1.70-slim-buster as build
+FROM rust:1.75-slim-buster as build
 
 # create a new empty shell project
 WORKDIR /server

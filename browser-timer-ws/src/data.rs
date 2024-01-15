@@ -75,7 +75,12 @@ impl DataHolder {
         self.first_timestamp
     }
 
+    pub const fn rtt(&self) -> u128 {
+        self.rtt
+    }
+
     pub fn update_rtt(&mut self, rtt: u128) {
+        log::trace!("rtt update: {rtt}");
         self.rtt = rtt;
     }
 
@@ -87,7 +92,6 @@ impl DataHolder {
                 WriteOn::Count(count) if *count != self.counter => {}
                 WriteOn::Filter(filter) if !filter(&value) => {}
                 _ => {
-                    log::info!("Writing data to file");
                     self.buffer.push(value);
 
                     return self.flush().await;
@@ -147,6 +151,7 @@ pub struct Data {
     pub timestamp: u64,
     pub typ: EventTyp,
     pub key_code: i32,
+    pub current_rtt: u128,
 }
 
 #[derive(Clone)]

@@ -162,7 +162,12 @@ impl Server {
                     Ok(rtt) => {
                         ws_sender
                             .send(Message::Text(TimerMessage::Rtt { rtt }.as_string()))
-                            .await?;
+                            .await
+                            .map_err(|err| {
+                                log::error!("{err}");
+                                err
+                            })?;
+
                         data.update_rtt(rtt);
                     }
                     Err(Some(c)) => log::warn!("no matching counter: {c}"),
@@ -184,6 +189,7 @@ impl Server {
                         timestamp: relativ,
                         typ,
                         key_code,
+                        current_rtt: data.rtt(),
                     })
                     .await?;
                 }
