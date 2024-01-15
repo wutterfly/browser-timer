@@ -133,7 +133,7 @@ impl DataHolder {
                 data.timestamp,
                 data.key_code,
                 data.typ.as_str(),
-                self.rtt
+                data.current_rtt
             ))?;
         }
 
