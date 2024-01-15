@@ -23,7 +23,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .format(|buf, record| {
             writeln!(
                 buf,
-                "[{:<5}] -- [{}]  {}",
+                "[{:<5}] --[{}:{}] [{}]  {}",
+                record.file().unwrap_or_default(),
+                record.line().unwrap_or_default(),
                 record.level(),
                 record.target(),
                 record.args()

@@ -92,7 +92,8 @@ impl TryFrom<&str> for TimerMessage {
                     };
 
                     let key_code = if let Some(code) = split.next() {
-                        code.parse::<u16>().map_err(|_| {
+                        let trimmed = code.trim();
+                        trimmed.parse::<u16>().map_err(|_| {
                             log::error!("KeyCode: {}", value);
                             MessageError::KeyCodeParseError
                         })?
