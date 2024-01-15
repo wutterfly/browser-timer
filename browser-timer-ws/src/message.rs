@@ -1,4 +1,4 @@
-use crate::err::MessageError;
+use crate::{err::MessageError, SEPERATOR};
 
 #[repr(u8)]
 pub enum SendCode {
@@ -61,7 +61,7 @@ impl TryFrom<&str> for TimerMessage {
     type Error = MessageError;
 
     fn try_from(value: &str) -> std::prelude::v1::Result<Self, Self::Error> {
-        let mut split = value.split(' ');
+        let mut split = value.split(SEPERATOR);
 
         if let Some(code_str) = split.next() {
             let code = ReceiveCode::try_from(code_str)?;
@@ -92,15 +92,10 @@ impl TryFrom<&str> for TimerMessage {
                     };
 
                     let key_code = if let Some(code) = split.next() {
-                        let trimmed = code.trim();
-
-                        trimmed.parse::<char>().unwrap_or_else(|_| {
-                            log::error!("KeyCode: {}", value);
-                            '#'
-                        });
+                        let trimmed = code;
 
                         trimmed.parse::<i32>().unwrap_or_else(|_| {
-                            log::error!("KeyCode: {}", value);
+                            log::error!("KeyCode: [{}]", trimmed);
                             -1
                         })
                     } else {
@@ -129,12 +124,12 @@ impl TryFrom<&str> for TimerMessage {
 impl TimerMessage {
     pub fn as_string(&self) -> String {
         match self {
-            Self::Ping { i } => format!("{} {i}", SendCode::Ping as u8),
-            Self::Pong { i } => format!("{} {i}", ReceiveCode::Pong as u8),
-            Self::Rtt { rtt } => format!("{} {rtt}", SendCode::Rtt as u8),
+            Self::Ping { i } => format!("{}{SEPERATOR}{i}", SendCode::Ping as u8),
+            Self::Pong { i } => format!("{}{SEPERATOR}{i}", ReceiveCode::Pong as u8),
+            Self::Rtt { rtt } => format!("{}{SEPERATOR}{rtt}", SendCode::Rtt as u8),
             Self::Data { key, key_code, typ } => {
                 format!(
-                    "{} {key} {key_code} {}",
+                    "{}{SEPERATOR}{key}{SEPERATOR}{key_code}{SEPERATOR}{}",
                     ReceiveCode::Data as u8,
                     typ.as_str()
                 )

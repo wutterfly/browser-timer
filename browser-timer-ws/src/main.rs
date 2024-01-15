@@ -17,16 +17,18 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::Arc;
 
+const SEPERATOR: char = '\u{F003}';
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // initialize global logger
     env_logger::Builder::from_env(Env::default().default_filter_or("trace"))
         .format(|buf, record| {
             writeln!(
                 buf,
-                "[{:<5}] --[{}:{}] [{}]  {}",
+                "[{:<5}] -- [{}:{}] [{}]  {}",
+                record.level(),
                 record.file().unwrap_or_default(),
                 record.line().unwrap_or_default(),
-                record.level(),
                 record.target(),
                 record.args()
             )
