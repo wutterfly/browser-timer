@@ -95,7 +95,11 @@ impl TryFrom<&str> for TimerMessage {
                         let trimmed = code;
 
                         trimmed.parse::<i32>().unwrap_or_else(|_| {
-                            log::error!("KeyCode: [{}]", trimmed);
+                            log::error!(
+                                "{} - KeyCode: [{}]",
+                                MessageError::KeyCodeParseError,
+                                trimmed
+                            );
                             -1
                         })
                     } else {

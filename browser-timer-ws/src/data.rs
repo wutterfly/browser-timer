@@ -108,6 +108,8 @@ impl DataHolder {
         );
         let path = PathBuf::from(&self.out_dir).join(file_name);
 
+        log::info!("Writing to file: {}", path.display());
+
         let f = std::fs::OpenOptions::new()
             .create(true)
             .write(true)
