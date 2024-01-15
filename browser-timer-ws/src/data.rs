@@ -144,7 +144,7 @@ pub struct Data {
     pub key: Box<str>,
     pub timestamp: u64,
     pub typ: EventTyp,
-    pub key_code: u16,
+    pub key_code: i32,
 }
 
 #[derive(Clone)]

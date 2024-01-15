@@ -52,7 +52,7 @@ pub enum TimerMessage {
     },
     Data {
         key: Box<str>,
-        key_code: u16,
+        key_code: i32,
         typ: EventTyp,
     },
 }
@@ -93,10 +93,16 @@ impl TryFrom<&str> for TimerMessage {
 
                     let key_code = if let Some(code) = split.next() {
                         let trimmed = code.trim();
-                        trimmed.parse::<u16>().map_err(|_| {
+
+                        trimmed.parse::<char>().unwrap_or_else(|_| {
                             log::error!("KeyCode: {}", value);
-                            MessageError::KeyCodeParseError
-                        })?
+                            '#'
+                        });
+
+                        trimmed.parse::<i32>().unwrap_or_else(|_| {
+                            log::error!("KeyCode: {}", value);
+                            -1
+                        })
                     } else {
                         return Err(MessageError::MoreDataExpected("ping counter"));
                     };
