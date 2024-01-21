@@ -86,7 +86,11 @@ impl TryFrom<&str> for TimerMessage {
 
                 ReceiveCode::Data => {
                     let key = if let Some(key) = split.next() {
-                        key.to_owned()
+                        if key == "," {
+                            "\",\"".to_owned()
+                        } else {
+                            key.to_owned()
+                        }
                     } else {
                         return Err(MessageError::MoreDataExpected("key"));
                     };
