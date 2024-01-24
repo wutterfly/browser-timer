@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/live/styles.css">
+    <script src="/live/script.js" type="text/javascript" id="timer_script"></script>
+    <title>Isolated Free-Text Typing Simulation</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <a class="header-link" href="/">Home</a>
+        <a class="header-link" href="/free-text/cross_origin.html">Unisolated Site</a>
+    </div>
+
+    <div class="content">
+        <h1 class="title">Isolated Free-Text Typing Simulation</h1>
+        <div class="status">
+            <div id="timer_script_src">Script Origin: </div>
+            <div id="isolated">Is isolated: </div>
+        </div>
+
+        <div class="input">
+
+            <textarea id="input-field" class="input-field"></textarea>
+
+        </div>
+
+
+        <div class="results">
+            <div class="result">
+                <div class="">Keys per Minute: </div>
+                <div class="" id="kpm"> </div>
+            </div>
+
+            <div class="result">
+                <div class="">Avg Key Down-Up Time: </div>
+                <div class="" id="kdt"> </div>
+            </div>
+
+            <div class="result">
+                <div class="">Avg Key Down-Down Time: </div>
+                <div class="" id="kdd"> </div>
+            </div>
+
+            <div class="result">
+                <div class="">Pauses: </div>
+                <div class="" id="kdd-p"> </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
