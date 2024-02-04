@@ -5,6 +5,7 @@ use message::TimerMessage;
 use ping::PingPong;
 use std::{
     net::{Ipv4Addr, SocketAddr},
+    sync::Arc,
     time::Duration,
 };
 use tokio::net::{TcpListener, TcpStream};
@@ -33,7 +34,7 @@ impl Server {
     /// Starts the websocket server.
     pub async fn start_server(
         &self,
-        data: Distributer,
+        data: Arc<Distributer>,
         port: u16,
     ) -> Result<(), Box<dyn std::error::Error>> {
         let addr = SocketAddr::new(std::net::IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), port);
@@ -190,8 +191,7 @@ impl Server {
                         typ,
                         key_code,
                         current_rtt: data.rtt(),
-                    })
-                    .await?;
+                    })?;
                 }
 
                 _ => unreachable!(),

@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 use crate::{err::MessageError, SEPERATOR};
 
 #[repr(u8)]
@@ -12,7 +14,7 @@ pub enum ReceiveCode {
     Data = 1,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum EventTyp {
     KeyDown,
     KeyUp,

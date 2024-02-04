@@ -11,7 +11,7 @@ use crate::{message::EventTyp, time::now};
 
 static CONN_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Distributer {
     out_dir: PathBuf,
     write_on: Option<WriteOn>,
@@ -49,6 +49,7 @@ pub struct DataHolder {
     out_prefix: &'static str,
     rtt: u128,
     first_timestamp: u128,
+    last_timestamp: u64,
 }
 
 impl DataHolder {
@@ -67,6 +68,7 @@ impl DataHolder {
             out_prefix,
             rtt: 0,
             first_timestamp,
+            last_timestamp: 0,
         }
     }
 
@@ -84,17 +86,17 @@ impl DataHolder {
         self.rtt = rtt;
     }
 
-    pub async fn push(&mut self, value: Data) -> std::io::Result<()> {
+    pub fn push(&mut self, value: Data) -> std::io::Result<()> {
         log::trace!("value: {value:?}");
         // if write out
         if let Some(on) = &self.write_on {
             match on {
-                WriteOn::Count(count) if *count != self.counter => {}
                 WriteOn::Filter(filter) if !filter(&value) => {}
-                _ => {
+                WriteOn::Filter(_) => {
+                    self.last_timestamp = value.timestamp;
                     self.buffer.push(value);
 
-                    return self.flush().await;
+                    return self.flush();
                 }
             }
         }
@@ -105,7 +107,7 @@ impl DataHolder {
         Ok(())
     }
 
-    pub async fn flush(&mut self) -> std::io::Result<()> {
+    pub fn flush(&mut self) -> std::io::Result<()> {
         let file_name = format!(
             "{}_{}_{}.csv",
             self.out_prefix, self.connection_counter, self.file_counter
@@ -119,8 +121,6 @@ impl DataHolder {
             .write(true)
             .truncate(true)
             .open(path)?;
-
-        // TODO: make file write async
 
         let mut out = BufWriter::new(f);
 
@@ -156,14 +156,12 @@ pub struct Data {
 
 #[derive(Clone)]
 pub enum WriteOn {
-    Count(usize),
     Filter(Arc<dyn (Fn(&Data) -> bool) + Send + Sync>),
 }
 
 impl std::fmt::Debug for WriteOn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Count(arg0) => f.debug_tuple("Count").field(arg0).finish(),
             Self::Filter(_) => f.debug_tuple("Filter").finish(),
         }
     }

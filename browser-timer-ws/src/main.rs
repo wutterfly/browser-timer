@@ -6,13 +6,14 @@ mod data;
 mod err;
 mod message;
 mod ping;
-mod server;
+mod server_http;
+mod server_ws;
 mod time;
 
 use data::{Distributer, WriteOn};
 use env_logger::Env;
 use message::EventTyp;
-use server::Server;
+use server_ws::Server;
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -43,22 +44,32 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
 
     // prepare data output
-    let dist = Distributer::new(
+    let dist = Arc::new(Distributer::new(
         Some(WriteOn::Filter(Arc::new(|data| {
             // on escape key up
             data.key_code == 27 && data.typ == EventTyp::KeyUp
         }))),
         PathBuf::from("./output"),
         "./key_data",
-    )?;
+    )?);
+
+    let rtt_interval = 4;
 
     // create websocket server
-    let server = Server::new(4);
+    let server = Server::new(rtt_interval);
 
     let port = 8021;
 
     // start server
-    rt.block_on(server.start_server(dist, port))?;
+    let (x, y) = rt.block_on(async {
+        tokio::join!(
+            server.start_server(dist.clone(), port),
+            server_http::start(dist, 8022)
+        )
+    });
+
+    x?;
+    y?;
 
     Ok(())
 }
